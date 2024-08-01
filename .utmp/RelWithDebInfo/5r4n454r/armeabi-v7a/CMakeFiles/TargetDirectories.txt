@@ -1,0 +1,5 @@
+D:/Documents/Codes/lightship/ardk-samples/.utmp/RelWithDebInfo/5r4n454r/armeabi-v7a/CMakeFiles/edit_cache.dir
+D:/Documents/Codes/lightship/ardk-samples/.utmp/RelWithDebInfo/5r4n454r/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+D:/Documents/Codes/lightship/ardk-samples/.utmp/RelWithDebInfo/5r4n454r/armeabi-v7a/FramePacing/CMakeFiles/swappywrapper.dir
+D:/Documents/Codes/lightship/ardk-samples/.utmp/RelWithDebInfo/5r4n454r/armeabi-v7a/FramePacing/CMakeFiles/edit_cache.dir
+D:/Documents/Codes/lightship/ardk-samples/.utmp/RelWithDebInfo/5r4n454r/armeabi-v7a/FramePacing/CMakeFiles/rebuild_cache.dir
