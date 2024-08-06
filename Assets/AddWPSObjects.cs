@@ -8,40 +8,44 @@ public class AddWPSObjects : MonoBehaviour
     [SerializeField] ARWorldPositioningObjectHelper positioningHelper;
     [SerializeField] Camera trackingCamera;
     [SerializeField] UnityEngine.UI.Text dbgText;
-    [SerializeField] GameObject cube;
-    [SerializeField] GameObject gpsCube;
+    [SerializeField] GameObject obj1;
     [SerializeField] GameObject ButtonStartGPS;
     [SerializeField] GameObject ButtonStopGPS;
 
     // replace the coordinates here with your location
     public List<float> lastKnownCoordinatesX; // Latitude
     public List<float> lastKnownCoordinatesY; // Longitude
-    double latitude = -16.6716403;
-    double longitude = -49.2526512;
-    double altitude = 0.0; // We're using camera-relative positioning so make the cube appear at the same height as the camera
+    double[,] arrayLocations = { 
+        { -16.678107640860347, -49.2405682896889  ,  0.0}, //Rua do bloco H - EMC
+        { -16.709285789878162, -49.259750950023985,  0.0}, //Esquina do areião, próximo à PF. 
+        { -16.709681185835677, -49.25481384461595 ,  0.0}, //Hugo
+        { -16.71044798286731 , -49.227500582309716, 20.0},//Palácio da música 
+        { -16.710579668811036, -49.22846871554045 , 20.0},//Monumento das direitos humanos
+        { -16.711154803217013, -49.22845067224935 , 20.0},// museu de arte contemporânea
+        { -16.711344011787887, -49.22775075346965 , 20.0},// Biblioteca
+    };
+
+    double longitude;
+    double latitude;
+    double altitude; // We're using camera-relative positioning so make the obj1 appear at the same height as the camera
 
     // Start is called before the first frame update
     void Start()
     {
-        // instantiate a cube, scale it up for visibility (make it even bigger if you need), then update its location
-        cube.transform.localScale *= 2.0f;
-        positioningHelper.AddOrUpdateObject(cube, latitude, longitude, altitude, Quaternion.identity);
+        latitude = arrayLocations[1, 0];
+        longitude = arrayLocations[1, 1];
+        altitude = arrayLocations[1, 2];
+        // instantiate a obj1, scale it up for visibility (make it even bigger if you need), then update its location
+        obj1.transform.localScale *= 2.0f;
+        positioningHelper.AddOrUpdateObject(obj1, latitude, longitude, altitude, Quaternion.identity);
 
         InvokeRepeating("GetCurrentPos", 1, 1); // Get position each seconds
         ButtonStartGPS.SetActive(false);
         ButtonStopGPS.SetActive(true);
     }
 
-    // Create a second cube and move it to the position predicted using the raw GPS + compass
-    //private GameObject gpsCube = null;
     void Update()
     {
-        // Create a second cube if we don't already have one:
-        //if (gpsCube == null)
-        //{
-        //gpsCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        //gpsCube.GetComponent<Renderer>().material.color = Color.red;
-        //}
 
         if (Input.location.isEnabledByUser)
         {
@@ -52,7 +56,6 @@ public class AddWPSObjects : MonoBehaviour
             Vector2 eastNorthOffsetMetres = EastNorthOffset(latitude, longitude, deviceLatitude, deviceLongitude);
             Vector3 trackingOffsetMetres = Quaternion.Euler(0, 0, Input.compass.trueHeading) * new Vector3(eastNorthOffsetMetres[0], (float)altitude, eastNorthOffsetMetres[1]);
             Vector3 trackingMetres = trackingCamera.transform.localPosition + trackingOffsetMetres;
-            gpsCube.transform.localPosition = trackingMetres;
         }
     }
 
@@ -104,7 +107,7 @@ public class AddWPSObjects : MonoBehaviour
         if (lastKnownCoordinatesY.Count < 10)
         {
             lastKnownCoordinatesY.Add(Input.location.lastData.longitude);
-            positioningHelper.AddOrUpdateObject(cube, GetAverageX(), GetAverageY(), altitude, Quaternion.identity);
+            positioningHelper.AddOrUpdateObject(obj1, GetAverageX(), GetAverageY(), altitude, Quaternion.identity);
         }
         else
         {
@@ -115,7 +118,7 @@ public class AddWPSObjects : MonoBehaviour
 
     public void UpdateObjectLocation()
     {
-        positioningHelper.AddOrUpdateObject(cube, GetAverageX(), GetAverageY(), altitude, Quaternion.identity);
+        positioningHelper.AddOrUpdateObject(obj1, GetAverageX(), GetAverageY(), altitude, Quaternion.identity);
     }
 
     public void StopGPSUpdate()
