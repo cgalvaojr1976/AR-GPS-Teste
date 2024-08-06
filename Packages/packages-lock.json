@@ -28,7 +28,7 @@
       "hash": "cf4d938b807811be40b791028f670c12e7ff074d"
     },
     "com.nianticlabs.lightship.wps": {
-      "version": "file:D:/Downloads/wps-upm-3.6.0.tgz",
+      "version": "file:C:/Users/cgalv/AR-GPS-Teste/Packages/wps-upm-3.6.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
