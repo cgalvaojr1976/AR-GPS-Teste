@@ -32,9 +32,9 @@ public class AddWPSObjects : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        latitude = arrayLocations[1, 0];
-        longitude = arrayLocations[1, 1];
-        altitude = arrayLocations[1, 2];
+        latitude = arrayLocations[0, 0];
+        longitude = arrayLocations[0, 1];
+        altitude = arrayLocations[0, 2];
         // instantiate a obj1, scale it up for visibility (make it even bigger if you need), then update its location
         obj1.transform.localScale *= 2.0f;
         positioningHelper.AddOrUpdateObject(obj1, latitude, longitude, altitude, Quaternion.identity);
